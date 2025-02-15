@@ -8,14 +8,14 @@ public class Main {
   
   
   //APLIQUE SINGLETON, REMOVA ESSA DECLARACAO E USO GetInstance nos métodos que chamam db
-  static DataBase db;
+  static getInstance();
   static int opcao;
   static Scanner entrada;
   //static Nota nota;
 
   public static void main(String[] args) {
     //REMOVA 
-    db = new DataBase(); 
+    public Database getInstance() = new database;
     entrada = new Scanner(System.in);
     
     //FACA UM MENU PARA SELECIONAR A OPCAO (1 - Prof/ 2- Coord) USANDO A SENHA EM PROFESSOR
