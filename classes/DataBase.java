@@ -11,7 +11,7 @@ public class DataBase {
     private ArrayList<Curso> cursos;
     private ArrayList<Turma> turmas;
 
-    public DataBase() {
+    private DataBase() {
         this.alunos = new ArrayList<>();
         this.professores = new ArrayList<>();
         this.cursos = new ArrayList<>();
