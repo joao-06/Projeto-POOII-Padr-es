@@ -73,7 +73,7 @@ public static void menuCoordenador(){
     System.out.println("║     6 - Cadastrar uma turma             ║");
     System.out.println("║     7 - Cadastrar um coordenador        ║");
     System.out.println("║  8 - Atribuir notas aos estudantes      ║");
-    System.out.println("║     9 - Mostrar a estatística          ║");
+    System.out.println("║     9 - Mostrar a estatística           ║");
     System.out.println("║      10 - Lista de recuperação          ║");
     System.out.println("║          11 - Lista geral               ║");
     System.out.println("║           12 - Histórico                ║");
