@@ -4,9 +4,17 @@ import java.util.ArrayList;
 
 //APLIQUE SINGLETON NESTA CLASSE
 
-  public static DataBAse getInstance(){
-    return null;
+  public static DataBase getInstance(){
+    if(Instance == null){
+    instance = new DataBase();
+
+      return instance;
+    }else{
+       return instance;
+    }
   }
+
+
 
 public class DataBase {
     
