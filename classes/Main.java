@@ -13,6 +13,7 @@ public class Main {
   static Scanner entrada;
   //static Nota nota;
 
+
   public static void main(String[] args) {
     //REMOVA 
     public Database getInstance() = new database;
