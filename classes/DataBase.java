@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 //APLIQUE SINGLETON NESTA CLASSE
 
-  public DataBAse getInstance(){
+  public static DataBAse getInstance(){
     return null;
   }
 
