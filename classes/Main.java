@@ -21,12 +21,44 @@ public class Main {
     
     //FACA UM MENU PARA SELECIONAR A OPCAO (1 - Prof/ 2- Coord) USANDO A SENHA EM PROFESSOR
     //MENU
-    menuCoordenador();
 
-    //menuProfessor();
+    public static void menu(){
+  do { 
+    System.out.println("╔═════════════════════════════════════════╗");
+    System.out.println("║               O que você é?             ║");
+    System.out.println("╠═════════════════════════════════════════╣");
+    System.out.println("║     1 - Coordenador                     ║");
+    System.out.println("║     2 - Professor                       ║");
+    System.out.println("║     0 - Sair                            ║");
+    System.out.println("╚═════════════════════════════════════════╝");
+    System.out.print("Opção: ");
+    opcao = entrada.nextInt(); 
+
+    switch (opcao) {
+      
+      case 1:
+        menuCoordenador();
+        break;
+      case 2:
+        menuProfessor();
+        break;
+      case 0:
+          System.out.println("Saindo...");
+          break;
+        default:
+          System.out.println("Opção inválida!");
+      }
+    } while (opcao != 0);
+
+}
+
+    
+    menuCoordenador();
+    menuProfessor();
    
     entrada.close();
   }
+  
 
 public static void menuCoordenador(){
   do { 
