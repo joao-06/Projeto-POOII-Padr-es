@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 //APLIQUE SINGLETON NESTA CLASSE
 
+  public DataBAse getInstance(){
+    return null;
+  }
+
 public class DataBase {
     
     private ArrayList<Aluno> alunos;
