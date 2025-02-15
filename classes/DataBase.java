@@ -49,7 +49,7 @@ public class DataBase {
     public String value;
 
     private Singleton(String value) {
-        // The following code emulates slow initialization.
+       // O código realiza uma inicialização lenta.
         try {
             Thread.sleep(100);
         } catch (InterruptedException ex) {
