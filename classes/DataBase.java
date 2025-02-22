@@ -1,4 +1,4 @@
-package atividade.pkg2.de.lp2.padrões;
+package classes;
 
 import java.util.ArrayList;
 
