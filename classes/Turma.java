@@ -1,4 +1,4 @@
-package classes;
+package atividade.pkg2.de.lp2.padrões;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,21 +7,17 @@ public class Turma {
 
   private String identificacao;
   private Curso curso;
-  private String semestre;
+  private Semestre semestre;
   private ArrayList<Professor> professores = new ArrayList<>();
   private ArrayList<AlunoTurma> alunos = new ArrayList<>();
 
   private List<Log> logs = new ArrayList<>();
   //Nota nota = new Nota();
 
-  public Turma(){
 
-  }
-
-  public Turma( String indentificacao, Curso curso, String semestre){
+  public Turma( String indentificacao, Curso curso){
     this.identificacao = indentificacao;
     this.curso = curso;
-    this.semestre = semestre;
     this.logs = new ArrayList<>();
   }
 
@@ -38,16 +34,9 @@ public class Turma {
   }
 
   public void setCurso( Curso curso){
-    this. curso = curso;
+    this.curso = curso;
   }
-
-public String getSemestre(){
-  return semestre;
-}
-
-public void setSemestre( String semestre){
-  this.semestre = semestre;
-}
+  
 
   public ArrayList<Professor> getProfessores() {
     return professores;
@@ -121,10 +110,23 @@ public void setSemestre( String semestre){
     for (Professor professor : professores){
       professor.exibirDados();
     }
-    System.out.println("Alunos");
+    System.out.println("Alunos: ");
     for (AlunoTurma aluno : alunos){
       aluno.getAluno().exibirDados();
     }
+    
+    System.out.println("Semestre: ");
+    for (AlunoTurma semestre : semestre){
+      semestre.getSemestre().exibirDados();
+    }
   }
+
+    public Semestre getSemestre() {
+        return semestre;
+    }
+
+    public void setSemestre(Semestre semestre) {
+        this.semestre = semestre;
+    }
 
 }
