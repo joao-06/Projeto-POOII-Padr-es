@@ -176,6 +176,17 @@ public static void menuProfessor(){
 
 }
 
+   public static void main(String[] args) {
+        // Criando instâncias das classes
+        ExportData exporter = new ExportData();
+        XMLtoJSONAdapter adapter = new XMLtoJSONAdapter(exporter);
+        ImportDataMEC importer = new ImportDataMEC();
+
+        // Convertendo XML para JSON e importando os dados
+        String convertedData = adapter.getConvertedData();
+        importer.importJson(convertedData);
+    }
+  
   public static String exportarDadosEstudante(){
    DataBase db = DataBase.getInstance();
    ArrayList<String[]> data = new ArrayList<String[]>();
