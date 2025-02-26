@@ -139,6 +139,8 @@ public static void menuProfessor(){
     System.out.println("║     2 - Mostrar a estatística           ║");
     System.out.println("║      3 - Lista de recuperação           ║");
     System.out.println("║           4 - Histórico                 ║");
+    System.out.println("║           5 - Dados dos alunos          ║");
+    System.out.println("║           6 - Dados importados          ║");
     System.out.println("║             0 - Sair                    ║");
     System.out.println("╚═════════════════════════════════════════╝");
     System.out.print("Opção: ");
@@ -158,6 +160,12 @@ public static void menuProfessor(){
       case 4:
         exibirHistorico();
         break;
+      case 5:
+        exportarDadosEstudante();
+        break;
+      case 6:
+       importDadosEstudanteMEC();
+        break;
       case 0:
           System.out.println("Saindo...");
           break;
@@ -167,6 +175,34 @@ public static void menuProfessor(){
     } while (opcao != 0);
 
 }
+
+  public static String exportarDadosEstudante(){
+   DataBase db = DataBase.getInstance();
+   ArrayList<String[]> data = new ArrayList<String[]>();
+  
+   ExportData exp = new ExportData();
+   ArrayList<Aluno> alunos = db.getAlunos();
+   for(int i = 0; i < alunos.size(); i++){
+     String[] sm = {"matricula", "alunos.get(i).getMatricula()"};
+     String[] sn = {"nome", alunos.get(i).getNome()};
+     String[] sc ={"cpf", alunos.get(i).getCpf()};
+     String[] st = {"telefone", alunos.get(i).getTelefone()};
+     String[] se =  {"endereco",alunos.get(i).getEndereco()};
+     data.add(sm);
+     data.add(sn);
+     data.add(sc);
+     data.add(st);
+     data.add(se);
+   }
+   return exp.ArrayToXMLFormat(data, 5 , "student");
+ }
+
+
+ public static void importDadosEstudanteMEC(){
+    String data = exportarDadosEstudante();
+    ImportDataMEC imec = new ImportDataMEC();
+    imec.importData(data);
+ }
 
 
 public static void cadastarCoordenador(){
