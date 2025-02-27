@@ -58,7 +58,8 @@ public class DataBase {
         turmas.get(1).adicionarAluno(new AlunoTurma(aluno));
         }
 
- public class Singleton {
+}
+   public class Singleton {
     private static Singleton instance;
     public String value;
 
@@ -78,7 +79,6 @@ public class DataBase {
         }
         return instance;
     }
-}
     }
 
     public ArrayList<Aluno> getAlunos() {
