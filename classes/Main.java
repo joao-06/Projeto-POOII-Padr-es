@@ -13,17 +13,22 @@ public class Main {
   //static Nota nota;
 
 
+  /**
+   * @param args
+   */
   public static void main(String[] args) {
     //REMOVA 
     
     DataBase.getInstace();
     entrada = new Scanner(System.in);
     
+  }
+    
     //FACA UM MENU PARA SELECIONAR A OPCAO (1 - Prof/ 2- Coord) USANDO A SENHA EM PROFESSOR
     //MENU
 
     public static void menu(){
-  do { 
+   do { 
     System.out.println("╔═════════════════════════════════════════╗");
     System.out.println("║               O que você é?             ║");
     System.out.println("╠═════════════════════════════════════════╣");
@@ -50,7 +55,6 @@ public class Main {
       }
     } while (opcao != 0);
 
-}
 
     
     menuCoordenador();
@@ -60,7 +64,7 @@ public class Main {
   }
   
 
-public static void menuCoordenador(){
+ public static void menuCoordenador(){
   do { 
     System.out.println("╔═════════════════════════════════════════╗");
     System.out.println("║                MENU                     ║");
@@ -176,7 +180,7 @@ public static void menuProfessor(){
 
 }
 
-   public static void main(String[] args) {
+   public static void main2(String[] args1) {
         // Criando instâncias das classes
         ExportData exporter = new ExportData();
         XMLtoJSONAdapter adapter = new XMLtoJSONAdapter(exporter);
@@ -534,5 +538,4 @@ public static void cadastrarTurma(){
 
   System.out.println("Turma cadastrada com sucesso!");
 }
-
-}
+  }
