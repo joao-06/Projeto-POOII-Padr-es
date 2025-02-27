@@ -4,26 +4,31 @@
  */
 package Adapter;
 
+import java.util.ArrayList;
+
 /**
  *
- * @author JOÃO
+ * @author JOAO
  */
 public class Adapter {
-    import org.json.JSONObject;
-import org.json.XML;
+private ImportDataMEC importDataMec; 
+private ExportData  exportDate;
 
-class XMLtoJSONAdapter {
-    private ExportData exportData;
-
-    public XMLtoJSONAdapter(ExportData exportData) {
-        this.exportData = exportData;
-    }
-
-    public String getConvertedData() {
-        String xmlData = exportData.getData();
-        JSONObject jsonObject = XML.toJSONObject(xmlData); // Converte XML para JSON
-        return jsonObject.toString(4); // Retorna JSON formatado
-    }
+public AdapterImport(ImportDataMEC importDataMec, ExportData  exportDate){
+ 
+    this.importDataMec = importDataMec;
+    this.exportDate = exportDate;
 }
 
+public void exportImport(ArrayList<String[]> data, int multipler, String tag){
+    
+    String xml = exportDate.ArrayToXMLFormat(data, multipler, tag);
+    
+    String json = convertxmltoJson(xml);
+    importDataMec.importData(json);
+}
+
+private String convertxmltoJson(String xml){
+    
+    String json = {\ data\": \ " + xml.replace()}
 }
