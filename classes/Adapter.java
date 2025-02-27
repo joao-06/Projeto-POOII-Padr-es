@@ -23,8 +23,10 @@ public AdapterImport(ImportDataMEC importDataMec, ExportData  exportDate){
 public void exportImport(ArrayList<String[]> data, int multipler, String tag){
     
     String xml = exportDate.ArrayToXMLFormat(data, multipler, tag);
+    System.out.println("XML gerado: \n" + xml);
     
     String json = convertxmltoJson(xml);
+    System.out.println("Enviando Json para ImportDataMec..." + xml);
     importDataMec.importData(json);
 }
 
