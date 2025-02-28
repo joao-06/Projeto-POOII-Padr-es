@@ -1,59 +1,34 @@
 package classes;
 
 import java.util.ArrayList;
+import atividade.pkg2.de.lp2.padrões.Turma;
 
 //APLIQUE SINGLETON NESTA CLASSE
-public static DataBase instance;
 
-  public static DataBase getInstance(){
-    if(instance == null)
-    instance = new DataBase();
-
-      return instance;
-  }
-
-  public class Singleton {
-    private static Singleton instance;
-    public String value;
-
-    private Singleton(String value) {
-       // O código realiza uma inicialização lenta.
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
-        }
-        this.value = value;
-    }
-
-    public static Singleton getInstance(String value) {
-        if (instance == null) {
-            instance = new Singleton(value);
-        }
-        return instance;
-    }
 
 public class DataBase {
 
     
+    private static DataBase instance;
+
     private ArrayList<Aluno> alunos;
     private ArrayList<Professor> professores;
     private ArrayList<Curso> cursos;
     private ArrayList<Turma> turmas;
 
+   
     private DataBase() {
         this.alunos = new ArrayList<>();
         this.professores = new ArrayList<>();
         this.cursos = new ArrayList<>();
         this.turmas = new ArrayList<>();
 
-        //ESSE TRECHO É TESTE. DEVE SER APAGADO NA VERSÃO FINAL
         alunos.add(new Aluno("Mirele Oliveira", "111.111.111-11", "(11) 91111-1111", "Rua A, Bairro A", "1111111", 7.0));
         alunos.add(new Aluno("Gabriel Cavalcante", "222.222.222-22", "(22) 92222-2222", "Rua B, Bairro B", "2222222", 7.0));
         alunos.add(new Aluno("Carlos Eduardo", "333.333.333-33", "(33) 93333-33333", "Rua C, Bairro C", "3333333", 7.0));
         alunos.add(new Aluno("Michael Jackson", "444.444.444-44", "(44) 94444-4444", "Rua D, Bairro D", "4444444", 7.0));
         alunos.add(new Aluno("Jair Bolsonaro", "555.555.555-55", "(55) 95555-5555", "Rua E, Bairro E", "5555555", 7.0));
-    
+
         professores.add(new Professor("Luís Araújo", "666.666.666-66", "(66) 96666-6666", "Rua F, Bairro F", "244576", "12345"));
         professores.add(new Professor("Beto Carneiro", "777.777.777-77", "(77) 97777-7777", "Rua G, Bairro G", "325078", "12345"));
 
@@ -65,16 +40,20 @@ public class DataBase {
 
         turmas.get(0).adicionarProfessor(professores.get(0));
         for (Aluno aluno : alunos) {
-        turmas.get(0).adicionarAluno( new AlunoTurma(aluno) );
+            turmas.get(0).adicionarAluno(new AlunoTurma(aluno));
         }
 
         turmas.get(1).adicionarProfessor(professores.get(1));
-        
         for (Aluno aluno : alunos) {
-        turmas.get(1).adicionarAluno(new AlunoTurma(aluno));
+            turmas.get(1).adicionarAluno(new AlunoTurma(aluno));
         }
+    }
 
-}
+    public static DataBase getInstance() {
+        if (instance == null) {
+            instance = new DataBase();
+        }
+        return instance;
     }
 
     public ArrayList<Aluno> getAlunos() {
@@ -109,3 +88,4 @@ public class DataBase {
         this.turmas = turmas;
     }
 }
+
