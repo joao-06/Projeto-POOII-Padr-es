@@ -12,13 +12,29 @@ public static DataBase instance;
       return instance;
   }
 
+  public class Singleton {
+    private static Singleton instance;
+    public String value;
 
+    private Singleton(String value) {
+       // O código realiza uma inicialização lenta.
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
+        this.value = value;
+    }
+
+    public static Singleton getInstance(String value) {
+        if (instance == null) {
+            instance = new Singleton(value);
+        }
+        return instance;
+    }
 
 public class DataBase {
 
-    static void getInstace() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
     private ArrayList<Aluno> alunos;
     private ArrayList<Professor> professores;
@@ -44,8 +60,8 @@ public class DataBase {
         cursos.add(new Curso("Linguagem de programação", "3"));
         cursos.add(new Curso("Estrutura de dados", "5"));
 
-        turmas.add(new Turma("20243", cursos.get(0), new Semestre( nome: "5", ativo:false)));
-        turmas.add(new Turma("20247", cursos.get(1), new Semestre( nome: "6", ativo:true)));
+        turmas.add(new Turma("20243", cursos.get(0), new Semestre("5", false)));
+        turmas.add(new Turma("20247", cursos.get(1), new Semestre("6", true)));
 
         turmas.get(0).adicionarProfessor(professores.get(0));
         for (Aluno aluno : alunos) {
@@ -59,26 +75,6 @@ public class DataBase {
         }
 
 }
-   public class Singleton {
-    private static Singleton instance;
-    public String value;
-
-    private Singleton(String value) {
-       // O código realiza uma inicialização lenta.
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
-        }
-        this.value = value;
-    }
-
-    public static Singleton getInstance(String value) {
-        if (instance == null) {
-            instance = new Singleton(value);
-        }
-        return instance;
-    }
     }
 
     public ArrayList<Aluno> getAlunos() {
