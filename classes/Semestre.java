@@ -42,7 +42,7 @@ public abstract class Semestre implements Evenlist{
     }
     
     public void exibirDados(){
-        System.out.print(+"Semestre: " +nome+ ", Ativo: " +(ativo ? "Sim" " Não"));
+        System.out.print("Semestre: " +nome+ ", Ativo: " +(ativo ? "Sim" :" Não"));
     }
     
    
