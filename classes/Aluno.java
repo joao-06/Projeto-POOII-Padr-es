@@ -1,36 +1,50 @@
 package classes;
 
-public class Aluno extends Pessoa implements Printable {
-private String matricula;
+public class Aluno extends Pessoa {
 
- 
-  public Aluno() {}
+    private String matricula;
+    private Double notaRecuperacao;
 
-  public Aluno(String nome, String cpf, String telefone, String endereco, String matricula, Double     notaRecuperacao) {
-   super(nome, cpf, telefone, endereco);
-   this.matricula = matricula;
-  
-  }
+    public Aluno() {
+        super();
+        this.matricula = "";
+        this.notaRecuperacao = 0.0;
+    }
 
-  public String getMatricula() {
-    return this.matricula;
-  }
+    public Aluno(String nome, String cpf, String telefone, String endereco, String matricula, Double notaRecuperacao) {
+        super(nome, cpf, telefone, endereco);
+        this.matricula = matricula != null ? matricula : "";
+        this.notaRecuperacao = notaRecuperacao != null ? notaRecuperacao : 0.0;
+    }
 
-  public void setMatricula(String matricula) {
-    this.matricula = matricula;
-  }
-  
-  
+    public String getMatricula() {
+        return matricula;
+    }
 
-  public void exibirDados() {
-    System.out.println("Nome: " + this.getNome());
-    System.out.println("CPF: " + this.getCpf());
-    System.out.println("Endereço: " + this.getEndereco());
-    System.out.println("Telefone: " + this.getTelefone());
-    System.out.println("Matrícula: " + this.matricula);
-  }
+    public void setMatricula(String matricula) {
+        this.matricula = matricula != null ? matricula : "";
+    }
 
-  public void exibirHistorico() {
-    System.out.println("Histórico do aluno " + this.getNome() + ":");
-  }
+    public Double getNotaRecuperacao() {
+        return notaRecuperacao;
+    }
+
+    public void setNotaRecuperacao(Double notaRecuperacao) {
+        this.notaRecuperacao = notaRecuperacao != null ? notaRecuperacao : 0.0;
+    }
+
+    @Override
+    public void exibirDados() {
+        System.out.println("Nome: " + getNome());
+        System.out.println("CPF: " + getCpf());
+        System.out.println("Endereço: " + getEndereco());
+        System.out.println("Telefone: " + getTelefone());
+        System.out.println("Matrícula: " + matricula);
+        System.out.println("Nota de Recuperação: " + notaRecuperacao);
+    }
+
+    public void exibirHistorico() {
+        System.out.println("Histórico do aluno " + (getNome() != null ? getNome() : "Desconhecido") + ":");
+        System.out.println("Nota de Recuperação: " + notaRecuperacao);
+    }
 }
