@@ -54,7 +54,6 @@ public class Main {
             System.out.println("║    10 - Lista de recuperação            ║");
             System.out.println("║    11 - Lista geral                     ║");
             System.out.println("║    12 - Histórico                       ║");
-            System.out.println("║    13 - Exportar dados para MEC         ║");
             System.out.println("║     0 - Sair                            ║");
             System.out.println("╚═════════════════════════════════════════╝");
             System.out.print("Opção: ");
@@ -90,6 +89,7 @@ public class Main {
             System.out.println("║     2 - Mostrar a estatística           ║");
             System.out.println("║      3 - Lista de recuperação           ║");
             System.out.println("║           4 - Histórico                 ║");
+            System.out.println("║    5 - Exportar dados dos alunos        ║");
             System.out.println("║             0 - Sair                    ║");
             System.out.println("╚═════════════════════════════════════════╝");
             System.out.print("Opção: ");
@@ -101,6 +101,7 @@ public class Main {
                 case 2 -> mostrarEstatistica();
                 case 3 -> exibirListaRecuperacao();
                 case 4 -> exibirHistorico();
+                case 5 -> importDadosEstudanteMEC();
                 case 0 -> System.out.println("Saindo...");
                 default -> System.out.println("Opção inválida!");
             }
@@ -392,4 +393,3 @@ public class Main {
         System.out.println("Dados exportados para o MEC com sucesso!");
     }
 }
-
