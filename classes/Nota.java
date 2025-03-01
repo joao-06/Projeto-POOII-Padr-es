@@ -1,118 +1,120 @@
 package classes;
 
-import atividade.pkg2.de.lp2.padrões.Evenlist;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Nota implements Observer{
+public class Nota implements Observer {
     private Double nota1;
     private Double nota2;
     private Double nota3;
     private Double notaRecuperacao;
-    private List<Evenlist> evenlist = new ArrayList<>();
-    private boolean bloqueado;
+    private boolean estadoNota;
+    private final List<Observer> observers;
 
     public Nota() {
         this.nota1 = 0.0;
         this.nota2 = 0.0;
         this.nota3 = 0.0;
         this.notaRecuperacao = 0.0;
-    
-    }
-
-    public Nota(Double nota1, Double nota2, Double nota3) {
-  if(!bloqueado){
-        this.nota1 = 0.0;
-        this.nota2 = 0.0;
-        this.nota3 = 0.0;
-        this.notaRecuperacao = 0.0;
-    }
-        atualizarEstado();
+        this.estadoNota = true;
+        this.observers = new ArrayList<>();
     }
 
     public Double getNota1() {
-        return this.nota1;
+        return nota1;
     }
 
     public void setNota1(Double nota1) {
-       if(!bloqueado)
-        this.nota1 = nota1;
-        atualizarEstado();
+        if (estadoNota) {
+            this.nota1 = nota1 != null ? nota1 : 0.0;
+            notificarObservadores();
+        }
     }
 
     public Double getNota2() {
-        return this.nota2;
+        return nota2;
     }
 
     public void setNota2(Double nota2) {
-        if(!bloqueado)
-        this.nota2 = nota2;
-        atualizarEstado();
+        if (estadoNota) {
+            this.nota2 = nota2 != null ? nota2 : 0.0;
+            notificarObservadores();
+        }
     }
 
     public Double getNota3() {
-        return this.nota3;
+        return nota3;
     }
 
     public void setNota3(Double nota3) {
-       if(!bloqueado)
-        this.nota3 = nota3;
-        atualizarEstado();
-         
+        if (estadoNota) {
+            this.nota3 = nota3 != null ? nota3 : 0.0;
+            notificarObservadores();
+        }
+    }
+
+    public Double getNotaRecuperacao() {
+        return notaRecuperacao;
+    }
+
+    public void setNotaRecuperacao(Double notaRecuperacao) {
+        if (estadoNota) {
+            this.notaRecuperacao = notaRecuperacao != null ? notaRecuperacao : 0.0;
+            notificarObservadores();
+        }
+    }
+
+    public boolean isEstadoNota() {
+        return estadoNota;
+    }
+
+    public void setEstadoNota(boolean estadoNota) {
+        this.estadoNota = estadoNota;
+        notificarObservadores();
     }
 
     public double calcularMedia() {
-        return (this.nota1 + this.nota2 + this.nota3) / 3;
-    }
-
-    public boolean verificarSituacao() {
-        boolean aprovado = false;
-        double media = this.calcularMedia();
-
-        if (media < 2.5) {
-            System.out.println("Reprovado");
-        } else if (media < 7) {
-            System.out.println("Em recuperação");
-        } else {
-            System.out.println("Aprovado");
-            aprovado = true;
+        double mediaInicial = (nota1 + nota2 + nota3) / 3;
+        if (notaRecuperacao > 0) {
+            return (mediaInicial + notaRecuperacao) / 2; // Média com recuperação
         }
-
-        return aprovado;
+        return mediaInicial;
     }
 
-    public void setNotaRecuperacao(double nota) {
-        if(!bloqueado)
-        this.notaRecuperacao = nota;
-        atualizarEstado();
-       
-    }
-
-    
-    public void addNotaListener(Evenlist evenlist) {
-        evenlist.add(evenlist);
-    }
-
-  
-    public void removeNotaListener(Evenlist evenlist) {
-        evenlist.remove(evenlist);
-    }
-
-  
-    
-    private void atualizarEstado(){
+    public String verificarSituacao() {
         double media = calcularMedia();
-        
+        if (media < 2.5) {
+            return "Reprovado";
+        } else if (media < 7) {
+            return "Em recuperação";
+        } else {
+            return "Aprovado";
+        }
+    }
+
+    @Override
+    public void update(boolean param) {
+        this.estadoNota = param;
+        notificarObservadores();
+    }
+
+    public void adicionarObservador(Observer observer) {
+        if (observer != null && !observers.contains(observer)) {
+            observers.add(observer);
+        }
+    }
+
+    private void notificarObservadores() {
+        for (Observer o : new ArrayList<>(observers)) {
+            if (o != null) {
+                o.update(estadoNota);
+            }
+        }
     }
 
     @Override
     public String toString() {
-        return this.nota1 + " , " + this.nota2 + " , " + this.nota3;
+        return String.format("Nota 1: %.2f, Nota 2: %.2f, Nota 3: %.2f, Recuperação: %.2f, Média: %.2f, Situação: %s",
+                nota1, nota2, nota3, notaRecuperacao, calcularMedia(), verificarSituacao());
     }
-
-  
-    public void update (boolean param){
-        bloqueado = !param;
-    }
-
 }
