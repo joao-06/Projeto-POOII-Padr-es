@@ -56,8 +56,9 @@ public class Main {
             System.out.println("║    12 - Histórico                       ║");
             System.out.println("║    13 - Mostrar situação do aluno       ║");
             System.out.println("║    14 - Mostrar estado do professor     ║");
-            System.out.println("║    15 - Mostrar estado do curso         ║"); 
+            System.out.println("║    15 - Mostrar estado do curso         ║");
             System.out.println("║    16 - Mostrar estado do semestre      ║");
+            System.out.println("║    17 - Mostrar estado da turma         ║"); 
             System.out.println("║     0 - Sair                            ║");
             System.out.println("╚═════════════════════════════════════════╝");
             System.out.print("Opção: ");
@@ -79,8 +80,9 @@ public class Main {
                 case 12 -> exibirHistorico();
                 case 13 -> exibirSituacaoAluno();
                 case 14 -> exibirEstadoProfessor();
-                case 15 -> exibirEstadoCurso(); 
+                case 15 -> exibirEstadoCurso();
                 case 16 -> exibirEstadoSemestre();
+                case 17 -> exibirEstadoTurma(); 
                 case 0 -> System.out.println("Saindo...");
                 default -> System.out.println("Opção inválida!");
             }
@@ -547,5 +549,46 @@ public class Main {
         // Exibir o estado do semestre escolhido
         Semestre semestre = db.getTurmas().get(escolhaSemestre).getSemestre();
         semestre.exibirEstado(); // Exibe o estado do semestre (Ativo ou Finalizado)
+    }
+
+    public static void exibirEstadoTurma() {
+        DataBase db = DataBase.getInstance();
+        System.out.println(" ---- Exibir Estado da Turma ----");
+    
+        // Verificar se o usuário atual é um coordenador
+        System.out.print("Informe o SIAPE do coordenador: ");
+        String siapeCoordenador = entrada.nextLine();
+    
+        Professor coordenador = null;
+        for (Professor prof : db.getProfessores()) {
+            if (prof.getSiape().equals(siapeCoordenador)) {
+                coordenador = prof;
+                break;
+            }
+        }
+    
+        if (coordenador == null || !coordenador.isCoordenador()) {
+            System.out.println("Apenas coordenadores podem acessar esta funcionalidade.");
+            return;
+        }
+    
+        // Listar todas as turmas disponíveis
+        System.out.println("Escolha a turma para exibir o estado:");
+        for (int i = 0; i < db.getTurmas().size(); i++) {
+            System.out.println(i + " - " + db.getTurmas().get(i).getIdentificacao());
+        }
+    
+        int escolhaTurma = entrada.nextInt();
+        entrada.nextLine(); // Consumir quebra de linha
+    
+        // Verificar se a escolha é válida
+        if (escolhaTurma < 0 || escolhaTurma >= db.getTurmas().size()) {
+            System.out.println("Escolha inválida!");
+            return;
+        }
+    
+        // Exibir o estado da turma escolhida
+        Turma turma = db.getTurmas().get(escolhaTurma);
+        turma.exibirEstado(); // Exibe o estado da turma (Aberta ou Fechada)
     }
 }
