@@ -1,13 +1,19 @@
 package classes;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observer;
+
+
 
 public class Semestre {
 
     private String nome;
     private boolean ativo;
     private final List<Observer> observers;
+    private LocalDate dataTermino;
+    private EstadoSemestre estado;
 
     public Semestre(String nome, boolean ativo) {
         this.nome = nome != null ? nome : "";
@@ -51,4 +57,26 @@ public class Semestre {
             }
         }
     }
+
+    public LocalDate getDataTermino() {
+        return dataTermino;
+    }
+
+    public void setDataTermino(LocalDate dataTermino) {
+        this.dataTermino = dataTermino;
+        estado.verificarEstado(this); // Verifica se o estado precisa mudar (padrão State)
+    }
+
+    public void setEstado(EstadoSemestre estado) {
+        this.estado = estado;
+    }
+
+    public void exibirEstado() {
+        estado.exibirEstado();
+    }
+
+    public void verificarEstado() {
+        estado.verificarEstado(this);
+    }
 }
+
