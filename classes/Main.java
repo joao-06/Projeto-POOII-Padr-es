@@ -54,12 +54,16 @@ public class Main {
             System.out.println("║    10 - Lista de recuperação            ║");
             System.out.println("║    11 - Lista geral                     ║");
             System.out.println("║    12 - Histórico                       ║");
+            System.out.println("║    13 - Mostrar situação do aluno       ║");
+            System.out.println("║    14 - Mostrar estado do professor     ║");
+            System.out.println("║    15 - Mostrar estado do curso         ║"); 
+            System.out.println("║    16 - Mostrar estado do semestre      ║");
             System.out.println("║     0 - Sair                            ║");
             System.out.println("╚═════════════════════════════════════════╝");
             System.out.print("Opção: ");
             opcao = entrada.nextInt();
-            entrada.nextLine(); // Consumir quebra de linha
-
+            entrada.nextLine(); 
+    
             switch (opcao) {
                 case 1 -> cadastrarProfessor();
                 case 2 -> vincularProfessorTurma();
@@ -73,7 +77,10 @@ public class Main {
                 case 10 -> exibirListaRecuperacao();
                 case 11 -> exibirListaGeral();
                 case 12 -> exibirHistorico();
-                case 13 -> importDadosEstudanteMEC();
+                case 13 -> exibirSituacaoAluno();
+                case 14 -> exibirEstadoProfessor();
+                case 15 -> exibirEstadoCurso(); 
+                case 16 -> exibirEstadoSemestre();
                 case 0 -> System.out.println("Saindo...");
                 default -> System.out.println("Opção inválida!");
             }
@@ -90,11 +97,12 @@ public class Main {
             System.out.println("║      3 - Lista de recuperação           ║");
             System.out.println("║           4 - Histórico                 ║");
             System.out.println("║    5 - Exportar dados dos alunos        ║");
+            System.out.println("║    6 - Mostrar situação do aluno       ║");
             System.out.println("║             0 - Sair                    ║");
             System.out.println("╚═════════════════════════════════════════╝");
             System.out.print("Opção: ");
             opcao = entrada.nextInt();
-            entrada.nextLine(); // Consumir quebra de linha
+            entrada.nextLine(); 
 
             switch (opcao) {
                 case 1 -> cadastrarNotas();
@@ -102,6 +110,7 @@ public class Main {
                 case 3 -> exibirListaRecuperacao();
                 case 4 -> exibirHistorico();
                 case 5 -> importDadosEstudanteMEC();
+                case 6 -> exibirSituacaoAluno();
                 case 0 -> System.out.println("Saindo...");
                 default -> System.out.println("Opção inválida!");
             }
@@ -391,5 +400,152 @@ public class Main {
         ImportDataMEC imec = new ImportDataMEC();
         imec.importData(data);
         System.out.println("Dados exportados para o MEC com sucesso!");
+    }
+
+    public static void exibirSituacaoAluno() {
+        DataBase db = DataBase.getInstance();
+        System.out.println(" ---- Exibir Situação do Aluno ----");
+    
+        // Listar todos os alunos disponíveis
+        System.out.println("Escolha o aluno para exibir a situação:");
+        for (int i = 0; i < db.getAlunos().size(); i++) {
+            System.out.println(i + " - " + db.getAlunos().get(i).getNome());
+        }
+    
+        int escolhaAluno = entrada.nextInt();
+        entrada.nextLine(); // Consumir quebra de linha
+    
+        // Verificar se a escolha é válida
+        if (escolhaAluno < 0 || escolhaAluno >= db.getAlunos().size()) {
+            System.out.println("Escolha inválida!");
+            return;
+        }
+    
+        // Exibir a situação do aluno escolhido
+        Aluno aluno = db.getAlunos().get(escolhaAluno);
+        aluno.exibirSituacao(); // Exibe a situação do aluno (Aprovado, Recuperação ou Reprovado)
+    }
+
+    public static void exibirEstadoProfessor() {
+        DataBase db = DataBase.getInstance();
+        System.out.println(" ---- Exibir Estado do Professor ----");
+    
+        // Verificar se o usuário atual é um coordenador
+        System.out.print("Informe o SIAPE do coordenador: ");
+        String siapeCoordenador = entrada.nextLine();
+    
+        Professor coordenador = null;
+        for (Professor prof : db.getProfessores()) {
+            if (prof.getSiape().equals(siapeCoordenador)) {
+                coordenador = prof;
+                break;
+            }
+        }
+    
+        if (coordenador == null || !coordenador.isCoordenador()) {
+            System.out.println("Apenas coordenadores podem acessar esta funcionalidade.");
+            return;
+        }
+    
+        // Listar todos os professores disponíveis
+        System.out.println("Escolha o professor para exibir o estado:");
+        for (int i = 0; i < db.getProfessores().size(); i++) {
+            System.out.println(i + " - " + db.getProfessores().get(i).getNome());
+        }
+    
+        int escolhaProfessor = entrada.nextInt();
+        entrada.nextLine(); // Consumir quebra de linha
+    
+        // Verificar se a escolha é válida
+        if (escolhaProfessor < 0 || escolhaProfessor >= db.getProfessores().size()) {
+            System.out.println("Escolha inválida!");
+            return;
+        }
+    
+        // Exibir o estado do professor escolhido
+        Professor professor = db.getProfessor().get(escolhaProfessor);
+        professor.exibirEstado(); // Exibe o estado do professor (Ativo ou Inativo)
+    }
+
+    public static void exibirEstadoCurso() {
+        DataBase db = DataBase.getInstance();
+        System.out.println(" ---- Exibir Estado do Curso ----");
+    
+        // Verificar se o usuário atual é um coordenador
+        System.out.print("Informe o SIAPE do coordenador: ");
+        String siapeCoordenador = entrada.nextLine();
+    
+        Professor coordenador = null;
+        for (Professor prof : db.getProfessores()) {
+            if (prof.getSiape().equals(siapeCoordenador)) {
+                coordenador = prof;
+                break;
+            }
+        }
+    
+        if (coordenador == null || !coordenador.isCoordenador()) {
+            System.out.println("Apenas coordenadores podem acessar esta funcionalidade.");
+            return;
+        }
+    
+        // Listar todos os cursos disponíveis
+        System.out.println("Escolha o curso para exibir o estado:");
+        for (int i = 0; i < db.getCursos().size(); i++) {
+            System.out.println(i + " - " + db.getCursos().get(i).getNomeCurso());
+        }
+    
+        int escolhaCurso = entrada.nextInt();
+        entrada.nextLine(); // Consumir quebra de linha
+    
+        // Verificar se a escolha é válida
+        if (escolhaCurso < 0 || escolhaCurso >= db.getCursos().size()) {
+            System.out.println("Escolha inválida!");
+            return;
+        }
+    
+        // Exibir o estado do curso escolhido
+        Curso curso = db.getCursos().get(escolhaCurso);
+        curso.exibirEstado(); // Exibe o estado do curso (Ativo ou Finalizado)
+    }
+
+    public static void exibirEstadoSemestre() {
+        DataBase db = DataBase.getInstance();
+        System.out.println(" ---- Exibir Estado do Semestre ----");
+    
+        // Verificar se o usuário atual é um coordenador
+        System.out.print("Informe o SIAPE do coordenador: ");
+        String siapeCoordenador = entrada.nextLine();
+    
+        Professor coordenador = null;
+        for (Professor prof : db.getProfessores()) {
+            if (prof.getSiape().equals(siapeCoordenador)) {
+                coordenador = prof;
+                break;
+            }
+        }
+    
+        if (coordenador == null || !coordenador.isCoordenador()) {
+            System.out.println("Apenas coordenadores podem acessar esta funcionalidade.");
+            return;
+        }
+    
+        // Listar todos os semestres disponíveis
+        System.out.println("Escolha o semestre para exibir o estado:");
+        for (int i = 0; i < db.getTurmas().size(); i++) {
+            System.out.println(i + " - " + db.getTurmas().get(i).getSemestre().getNome());
+        }
+    
+        int escolhaSemestre = entrada.nextInt();
+        entrada.nextLine(); // Consumir quebra de linha
+    
+        // Verificar se a escolha é válida
+        if (escolhaSemestre < 0 || escolhaSemestre >= db.getTurmas().size()) {
+            System.out.println("Escolha inválida!");
+            return;
+        }
+    
+        // Exibir o estado do semestre escolhido
+        Semestre semestre = db.getTurmas().get(escolhaSemestre).getSemestre();
+        semestre.exibirEstado(); // Exibe o estado do semestre (Ativo ou Finalizado)
     }
 }
