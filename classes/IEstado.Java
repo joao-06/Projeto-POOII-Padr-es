@@ -19,3 +19,8 @@ public interface EstadoSemestre {
     void exibirEstadoSemestre();
     void verificarEstadoSemestre(Semestre semestre);
 }
+
+public interface EstadoTurma {
+    void exibirEstadoTurma();
+    void adicionarAlunoTurma(Turma turma, AlunoTurma aluno);
+}
