@@ -43,3 +43,20 @@ public class Reprovado implements EstadoAluno {
         }
     }
 }
+
+public class Recuperacao implements EstadoAluno {
+    @Override
+    public void exibirSituacao() {
+        System.out.println("Aluno está em Recuperação.");
+    }
+
+    @Override
+    public void verificarEstado(Aluno aluno) {
+        if (aluno.getNotaRecuperacao() >= 7) {
+            aluno.setEstado(new Aprovado());
+        } else if (AlunoTurma.getNotaRecuperacao() < 2.5) {
+            aluno.setEstado(new Reprovado());
+        }
+    }
+
+}
